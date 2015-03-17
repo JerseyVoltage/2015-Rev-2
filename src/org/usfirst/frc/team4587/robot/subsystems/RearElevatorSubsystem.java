@@ -16,12 +16,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class RearElevatorSubsystem extends PIDSubsystem {
-	public static final double POSITION_BOTTOM  = 0.0;
-	public static final double POSITION_TOP     = 1.0;
-	public static final double POSITION_6_STACK = 0.8;
-
+	public static final double POSITION_BOTTOM  = -1.0;
+	public static final double POSITION_TOP     = -0.23;
+	
+	
 	private static final boolean MOTOR_IS_REVERSED = false;
-	private static final double Kp = 50.0;
+	private static final double Kp = 14.0;
 	private static final double Ki = 0.0;
 	private static final double Kd = 0.0;
 
@@ -32,7 +32,7 @@ public class RearElevatorSubsystem extends PIDSubsystem {
 	private double lastOutput = 0.0;
 
 	public void display() {
-		SmartDashboard.putNumber("Rear Elevator Pot", this.getPot());
+		SmartDashboard.putNumber("Rear Elevator Pot", -this.getPot());
 		SmartDashboard.putNumber("Rear Elevator Setpoint", this.getSetpoint());
 		SmartDashboard.putBoolean("Rear Elevator Fork", this.getForkSolenoid());
 		SmartDashboard.putNumber("Rear Elevator Last Output", this.lastOutput);
@@ -53,8 +53,8 @@ public class RearElevatorSubsystem extends PIDSubsystem {
     	motorLift = new Talon(RobotMap.MOTOR_LIFT_C1);
     	pospot = new AnalogPotentiometer(RobotMap.POT_SENSOR_REARLIFT);
     	forkSolenoid = new Solenoid(RobotMap.CAN_COLLECTION_SOLENOID);
-    	this.setSetpoint(getPot());
-    	this.setAbsoluteTolerance(.002);
+    	this.setSetpoint(-getPot());
+    	this.setAbsoluteTolerance(.007);
     	enable();
     }
     
@@ -66,7 +66,7 @@ public class RearElevatorSubsystem extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    	return getPot();
+    	return -getPot();
     }
 
     public void setElevatorPosition(double p) {
@@ -82,11 +82,9 @@ public class RearElevatorSubsystem extends PIDSubsystem {
     	{
     		output = -output;
     	}
-    	else
-    	{
+    	
     		motorLift.pidWrite(output);
     		lastOutput = output;
-    	}
     }
 
     public void StopMotors() {

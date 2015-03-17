@@ -16,6 +16,7 @@ public class MoveRearElevatorCommand extends Command {
 	public MoveRearElevatorCommand(boolean direction) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis)
+		requires(Init.rB);
 		this.direction = direction;	
 	}
 
@@ -23,10 +24,14 @@ public class MoveRearElevatorCommand extends Command {
 	protected void initialize() {
 		if(direction == MOVE_UP)
 		{
+			//Init.rB.setForkSolenoid(true);
+			Init.rB.getPIDController().setPID(14,0, 0);
 		   Init.rB.setElevatorPosition(RearElevatorSubsystem.POSITION_TOP);
 		}
 		else
 		{
+			//Init.rB.setForkSolenoid(false);
+			Init.rB.getPIDController().setPID(5 ,0, 0);
 		   Init.rB.setElevatorPosition(RearElevatorSubsystem.POSITION_BOTTOM);
 		}
 	}

@@ -2,19 +2,23 @@ package org.usfirst.frc.team4587.robot.commands.LiftCommand;
 
 import org.usfirst.frc.team4587.robot.Init;
 import org.usfirst.frc.team4587.robot.subsystems.CollectorSubsystem;
+import org.usfirst.frc.team4587.robot.subsystems.ToteElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class liftDown extends Command {
-	double power;
-    public liftDown(double power) {
+public class liftTote extends Command {
+
+	boolean direction;
+	private final boolean Up = true;
+	private final boolean Down = false;
+    public liftTote(boolean direction) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Init.eB);
-    	this.power = power;
+    	this.direction = direction;
     			//requires(Init.cB);
     }
 
@@ -24,8 +28,11 @@ public class liftDown extends Command {
     	{
     		Init.eB.setSetpoint(Init.eB.getPosition());
     	}*/
-    	Init.eB.disable();
-    	Init.eB.moveElevator(power);
+    	//Init.eB.disable();
+    	if(direction == Up)
+    		Init.eB.setSetpoint(ToteElevatorSubsystem.UpValue);
+    	else if (direction == Down)
+    	Init.eB.setSetpoint(ToteElevatorSubsystem.downValue);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -44,7 +51,7 @@ public class liftDown extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Init.eB.setSetpoint(Init.eB.getPosition());
-    	Init.eB.enable();
+    	//Init.eB.enable();
     }
 
     // Called when another command which requires one or more of the same

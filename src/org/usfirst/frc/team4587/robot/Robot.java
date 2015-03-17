@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 		Init.init();
 		Init.dB.resetEncoders();
 		Init.dB.resetGyro();
-		Init.cB.clawSet(true);
+		Init.cB.clawSet(false);
         // instantiate the command used for the autonomous period
        // autonomousCommand = new ExampleCommand();
     }
@@ -75,8 +75,9 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         Init.dB.display();
         Init.cB.displayIntake();
-        Init.eB.display();
+        Init.eB.display();	
         Init.rB.display();
+        Init.bB.display();
     }
     
     /**

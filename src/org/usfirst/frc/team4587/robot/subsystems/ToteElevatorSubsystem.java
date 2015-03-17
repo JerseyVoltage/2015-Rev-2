@@ -14,12 +14,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ToteElevatorSubsystem extends PIDSubsystem {
+	public static final double UpValue = .65;
+	public static final double downValue = .07;
+	public static final double SafeZoneRearElevator = 0.3;
 	private double output;
 	Potentiometer pot;
 	SpeedController motorLift;
 	Solenoid pistonBrake;
 	// Sensors
-	DigitalInput downLimit, upLimit;
 	Potentiometer pospot;
 	private static final double Kp = 15; // was 15
 	private static final double Ki = 0;
@@ -40,10 +42,9 @@ public class ToteElevatorSubsystem extends PIDSubsystem {
 		this.getPIDController().setContinuous(false);
 		//
 		this.motorLift = new Talon(RobotMap.MOTOR_LIFT_TL1);
-		downLimit = new DigitalInput(RobotMap.TOUCH_SENSOR_TD);
-		upLimit = new DigitalInput(RobotMap.TOUCH_SENSOR_TU);
 		pospot = new AnalogPotentiometer(RobotMap.POT_SENSOR_LIFT, 1, 0); // pot
-		// this.elevatorTotePID.setPosition(getAdjustedPot());
+		this.setSetpoint(this.getPosition());
+		this.enable();
 	}
 	@Override
 	protected double returnPIDInput() {
@@ -54,8 +55,13 @@ public class ToteElevatorSubsystem extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
+		if(this.getPosition() <= ToteElevatorSubsystem.SafeZoneRearElevator && CollectorSubsystem.CollectorIn == true && output < 0){
+		this.setSetpoint(ToteElevatorSubsystem.SafeZoneRearElevator);
+		output = 0;
+		}
 		this.output = output;
 		this.motorLift.set(output);
+		
 	}
 	
 	public double getPot(){
@@ -71,14 +77,6 @@ public class ToteElevatorSubsystem extends PIDSubsystem {
 		SmartDashboard.putBoolean("Elevator PID Enabled", this.getPIDController().isEnable());
 		SmartDashboard.putNumber("Elevator Power", this.motorLift.get());
 		// System.out.println(this.elevatorTotePID.getDesiredPosition());
-	}
-
-	public boolean getDownLimit() {
-		return downLimit.get();
-	}
-
-	public boolean getUpLimit() {
-		return upLimit.get();
 	}
 
 	public void moveElevator(double power) {

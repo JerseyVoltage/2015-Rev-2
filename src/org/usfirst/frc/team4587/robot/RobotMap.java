@@ -15,11 +15,14 @@ public class RobotMap {
 	 * Motors Right Side
 	 */
 	public static final int MOTOR_DRIVE_R1 = 1;
-
 	/*
-	 * H drive motors
+	 * Elevator Motors for Can
 	 */
-	public static final int MOTOR_DRIVE_H = 4;
+	public static final int MOTOR_LIFT_C1 = 2;
+	/*
+	 * Bobin Lift
+	 */
+	public static final int MOTOR_LIFT_B1 = 4;
 	/*
 	 * Intake Motors
 	 */
@@ -30,14 +33,11 @@ public class RobotMap {
 	 */
 	public static final int MOTOR_LIFT_TL1 = 7;
 	//public static final int MOTOR_LIFT_TR1 = 8;
-	/*
-	 * Elevator Motors for Can
-	 */
-	public static final int MOTOR_LIFT_C1 = 2;
+
 	/*
 	 * Motor to deploy totes
 	 */
-	public static final int MOTOR_DEPLOY_TOTES = 9;
+	//public static final int MOTOR_DEPLOY_TOTES = 9;
 	// ////////////////////////////////--Solenoids--/////////////////////////////////////////
 	/*
 	 * Fork Pneumatic
@@ -46,18 +46,18 @@ public class RobotMap {
 	/*
 	 * Collector Pneumatics for totes
 	 */
-	public static final int TOTE_COLLECTION_SOLENOID = 6;
+	public static final int TOTE_COLLECTION_SOLENOID = 4;
 	//public static final int BRAKE_CAN_ELEVATOR = 2;
 	/*
 	 * Pneumatic Shifter for Drivetrain
 	 */
-	public static final int SHIFTER_SOLENOID_L1 = 3;
-	public static final int SHIFTER_SOLENOID_R1 = 4;
+/*	public static final int SHIFTER_SOLENOID_L1 = 3;
+	public static final int SHIFTER_SOLENOID_R1 = 4;*/
 	
 	/*
 	 * Claw Pneumatics for Can Colection
 	 */
-	public static final int CLAW_SOLENOID_1 = 7;
+	public static final int CLAW_SOLENOID_1 = 5;
 	/*
 	 * Solenoid for Shifters
 	 */
@@ -76,13 +76,11 @@ public class RobotMap {
 	/*
 	 * Touch Sensors for Totes collection
 	 */
-	public static final int TOUCH_SENSOR_C1 = 0; // left
-	public static final int TOUCH_SENSOR_C2 = 1; // right
+	public static final int TOUCH_SENSOR_C1 = 0; // tote collection
 	/*
-	 * Touch Sensor for CAN elevator
+	 * Bobin Limit siwtch
 	 */
-	public static final int TOUCH_SENSOR_IN = 2;
-	public static final int TOUCH_SENSOR_OUT = 3;// not use
+	public static final int TOUCH_SENSOR_B1 = 1; 
 	/*
 	 * Encoders for Drive Wheels Two ports: a,b
 	 */
@@ -92,10 +90,10 @@ public class RobotMap {
 	public static final int ENCODER_SENSOR_L_A = 6;
 	public static final int ENCODER_SENSOR_L_B = 7;
 	/*
-	 * Touch sensor for Elevator tote
-	 */
-	public static final int TOUCH_SENSOR_TD = 8; //down touch sensor
-	public static final int TOUCH_SENSOR_TU = 9;
+	 * BOBIN SENSOR FOR ELEVATORd
+	 * */
+	public static final int ENCODER_SENSOR_BOBIN_A = 8; //BOBIN Encoder SENSOR
+	public static final int ENCODER_SENSOR_BOBIN_B = 9;
 	
 	// //////////////////////////////////--Analog--///////////////////////////////
 	/*

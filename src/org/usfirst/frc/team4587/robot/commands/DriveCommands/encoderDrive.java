@@ -11,6 +11,12 @@ public class encoderDrive extends Command {
 	double time;
 	boolean isdone;//cooler
 	double maxOutput;
+	/**
+	 * 
+	 * @param dist
+	 * @param time
+	 * @param maxOutput
+	 */
 	public encoderDrive(double dist, double time, double maxOutput) {
 		requires(Init.dB);
 		this.dist = dist;

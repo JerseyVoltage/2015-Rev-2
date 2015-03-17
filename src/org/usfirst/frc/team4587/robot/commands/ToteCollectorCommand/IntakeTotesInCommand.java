@@ -31,7 +31,7 @@ public class IntakeTotesInCommand extends Command {
 
     // Make this return true when this Cosmmand no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Init.cB.getSwitchR() == false && Init.cB.getSwitchL() == false) {
+    	if (/*Init.cB.getSwitchR() == false */Init.cB.getSwitchL() == false) {
 			return true;
 		} else
 			return false;
