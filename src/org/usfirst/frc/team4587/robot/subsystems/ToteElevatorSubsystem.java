@@ -28,7 +28,7 @@ public class ToteElevatorSubsystem extends PIDSubsystem {
 	private static final double Kd = 0;
 	// lift const
 	public static final double FLOOR = 0;
-	public static final double inbetween = .065;
+	public static final double inbetween = .06;
 	public static final double NEAR_FLOOR = .2;
 	public static final double ONE_TOTE = .28;
 	public static final double TWO_TOTE = .4;

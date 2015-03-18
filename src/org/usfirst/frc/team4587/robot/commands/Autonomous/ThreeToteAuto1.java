@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4587.robot.commands.Autonomous;
 
-import org.usfirst.frc.team4587.robot.commands.DriveCommands.encoderDrive;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
