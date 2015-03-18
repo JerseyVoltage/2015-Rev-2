@@ -21,7 +21,7 @@ public class encoderDrive extends Command {
 		requires(Init.dB);
 		this.dist = dist;
 		this.time = time;
-
+		this.maxOutput = maxOutput;
 	}
 
 	// Called just before this Command runs the first time

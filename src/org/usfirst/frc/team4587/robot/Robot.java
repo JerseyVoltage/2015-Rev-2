@@ -32,17 +32,28 @@ public class Robot extends IterativeRobot {
 		Init.dB.resetEncoders();
 		Init.dB.resetGyro();
 		Init.cB.clawSet(false);
+		Init.bB.setSetpoint(Init.bB.getPosition());
         // instantiate the command used for the autonomous period
        // autonomousCommand = new ExampleCommand();
     }
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+	      Init.dB.display();
+	        Init.cB.displayIntake();
+	        Init.eB.display();	
+	        Init.rB.display();
+	        Init.bB.display();
 	}
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        Init.dB.display();
+        Init.cB.displayIntake();
+        Init.eB.display();	
+        Init.rB.display();
+        Init.bB.display();
     }
 
     /**
@@ -50,6 +61,11 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        Init.dB.display();
+        Init.cB.displayIntake();
+        Init.eB.display();	
+        Init.rB.display();
+        Init.bB.display();
     }
 
     public void teleopInit() {
@@ -65,7 +81,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	
     }
 
     /**

@@ -18,6 +18,9 @@ static final boolean MOVE_DOWN = false;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Init.bB);
+    	
+    	System.out.println("Move Bobin Constructor");
+    	this.dir = false;
     	this.dir = dir;
     }
 
@@ -26,28 +29,24 @@ static final boolean MOVE_DOWN = false;
     	if(dir == MOVE_UP)
 		{
 			//Init.rB.setForkSolenoid(true);
-			//Init.rB.getPIDController().setPID(14,0, 0);
-    		//Init.bB.setOutputRange(1, 1);
-    		//Init.bB.getPIDController().setPID(.5, 0, 0);
-    		//Init.bB.setSetpoint(BobinElevatorSubsystem.Up_Pos);
-    		Init.bB.setMotor(1);
+			//Init.bB.getPIDController().setPID(.2,0, 0);
+    		Init.bB.getPIDController().setPID(.3, 0, 0);
+    		Init.bB.setOutputRange(-1, 1);
+    		Init.bB.setSetpoint(Init.bB.Up_Pos);
+    		//Init.bB.setMotor(-1);
 		}
-		else if(dir == MOVE_DOWN)
+    	else if(dir == MOVE_DOWN)
 		{
-			Init.bB.setMotor(-1);
-			//Init.rB.setForkSolenoid(false);
-			//Init.bB.setOutputRange(1, 1);
-    		/*Init.bB.getPIDController().setPID(.5, 0, 0);
-			Init.bB.setSetpoint(BobinElevatorSubsystem.Down_Pos);*/
+			//Init.bB.disable();
+    		Init.bB.getPIDController().setPID(.2, 0, 0);
+    		System.out.println("Bobin down");
+    		Init.bB.setOutputRange(-.3, .3);
+    		Init.bB.setSetpoint(-10);
 		}
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Init.bB.checkandReset();
-    	/*if(Init.bB.getLimit() == false){
-			Init.bB.resetEncoder();
-		}*/
+    protected void execute() {	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -57,7 +56,10 @@ static final boolean MOVE_DOWN = false;
 
     // Called once after isFinished returns true
     protected void end() {
-    	Init.bB.setSetpoint(Init.bB.getPosition());// hold current position.
+    	//Init.bB.setSetpoint(Init.bB.getPosition());// hold current position.
+    	//Init.bB.enable();
+    	Init.bB.setOutputRange(-.4, 1);
+    	Init.bB.setSetpoint(Init.bB.getPosition());
     }
 
     // Called when another command which requires one or more of the same

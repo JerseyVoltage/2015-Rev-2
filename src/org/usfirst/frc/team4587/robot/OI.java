@@ -1,11 +1,14 @@
 package org.usfirst.frc.team4587.robot;
 
+import org.usfirst.frc.team4587.robot.commands.BobinElevatorCommand.IncrementToteBobinCommand;
 import org.usfirst.frc.team4587.robot.commands.BobinElevatorCommand.MoveBobinElevatorCommand;
+import org.usfirst.frc.team4587.robot.commands.BobinElevatorCommand.SetBobinElevatorCommand;
 import org.usfirst.frc.team4587.robot.commands.DriveCommands.encoderDrive;
 import org.usfirst.frc.team4587.robot.commands.DriveCommands.togglePIDGyro;
 import org.usfirst.frc.team4587.robot.commands.DriveCommands.toggleSpeed;
 import org.usfirst.frc.team4587.robot.commands.LiftCommand.SetToteElevator;
 import org.usfirst.frc.team4587.robot.commands.LiftCommand.liftTote;
+import org.usfirst.frc.team4587.robot.commands.LiftCommand.pickUpTote;
 import org.usfirst.frc.team4587.robot.commands.RearElevatorCommand.MoveRearElevatorCommand;
 import org.usfirst.frc.team4587.robot.commands.RearElevatorCommand.SetForkPositionCommand;
 import org.usfirst.frc.team4587.robot.commands.ToteCollectorCommand.IntakeTotesInCommand;
@@ -51,6 +54,7 @@ public class OI {
 	/*
 	 * Tote Lift Assignment
 	 */
+	
 	public static final JoyButton liftUp = new JoyButton(operatorStick,JoyButton.JoyDir.UP, F310GamePad.rightStick_Y);
 	public static final JoyButton liftDown = new JoyButton(operatorStick, JoyButton.JoyDir.DOWN, F310GamePad.rightStick_Y);
 	public static final Button Position0 = new JoystickButton(operatorStick, F310GamePad.button_Start);
@@ -58,11 +62,14 @@ public class OI {
 	public static final Button Position2 = new JoystickButton(operatorStick, F310GamePad.button_B);
 	public static final Button Position3 = new JoystickButton(operatorStick, F310GamePad.button_Y);
 	public static final Button Position4 = new JoystickButton(operatorStick, F310GamePad.button_X);
+	public static final Button pickupTote = new JoystickButton(operatorStick, F310GamePad.button_Back);
 	/*
 	 * Bobin Lift Button Assignment
 	 */
 	public static final JoyButton bobinDown = new JoyButton(operatorStick,JoyButton.JoyDir.DOWN, F310GamePad.leftStick_Y);
 	public static final JoyButton bobinUp = new JoyButton(operatorStick, JoyButton.JoyDir.UP, F310GamePad.leftStick_Y);
+	public static final Dpad pickUp = new Dpad(operatorStick,HatDir.DOWN);
+	public static final Dpad neutralState = new Dpad(operatorStick, HatDir.UP);
 	public OI() {
 		/*
 		 * Collection
@@ -100,11 +107,15 @@ public class OI {
 		Position2.whenPressed(new SetToteElevator(ToteElevatorSubsystem.TWO_TOTE));
 		Position3.whenPressed(new SetToteElevator(ToteElevatorSubsystem.THREE_TOTE));
 		Position4.whenPressed(new SetToteElevator(ToteElevatorSubsystem.FOUR_TOTE));
+		pickupTote.whenPressed(new pickUpTote());
+		
 		/*
 		 * Bobin Lift
 		 */
-		bobinUp.whenPressed(new MoveBobinElevatorCommand(true));
-		bobinDown.whenPressed(new MoveBobinElevatorCommand( false));
+		bobinUp.whileHeld(new MoveBobinElevatorCommand(true));
+		bobinDown.whileHeld(new MoveBobinElevatorCommand( false));
+		pickUp.whenActive(new IncrementToteBobinCommand());
+		neutralState.whenActive(new SetBobinElevatorCommand(1.7));
 		System.out.println("OI");
 	}
 }

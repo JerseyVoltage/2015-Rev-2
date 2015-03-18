@@ -19,6 +19,8 @@ double setpoint;
     // Called just before this Command runs the first time
     protected void initialize() {
     	//Init.bB.resetEncoder();
+    	Init.bB.getPIDController().setPID(.3, 0, 0);
+    	Init.bB.setOutputRange(-.4, 1);
     	Init.bB.setSetpoint(setpoint);
     }
 

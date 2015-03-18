@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4587.robot.subsystems;
 
+import org.usfirst.frc.team4587.robot.Init;
+import org.usfirst.frc.team4587.robot.OI;
 import org.usfirst.frc.team4587.robot.RobotMap;
 
 import Utilities.Math4587;
@@ -23,16 +25,17 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 	//double enc_val;
 	public BobinElevatorSubsystem() {
 		super("Bobin Elevator", 0.5, 0, 0);
-		this.getPIDController().setContinuous();
-		this.setAbsoluteTolerance(4);
+		//this.getPIDController().setContinuous();
+		this.setAbsoluteTolerance(.5);
 		
 		bobinLift = new Talon(RobotMap.MOTOR_LIFT_B1);
 		BobinEncoder = new Encoder(RobotMap.ENCODER_SENSOR_BOBIN_A,
 				RobotMap.ENCODER_SENSOR_BOBIN_B);
 		lowerLimit = new DigitalInput(RobotMap.TOUCH_SENSOR_B1);
-		//this.resetEncoder();
-		this.setSetpoint(this.getPosition());
-		this.enable();
+		this.resetEncoder();
+		//this.setSetpoint(this.getPosition());
+		this.enable();	
+		//this.setMotor(0);
 	}
 
 	// Put methods for controlling this subsystem
@@ -46,17 +49,27 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 	@Override
 	protected double returnPIDInput() {
 		// TODO Auto-generated method stubss
+		if(this.getLimit() == false)
+		{
+			this.resetEncoder();
+		}
 		return getEncoder();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		lastOutput = output;
-		setMotor(output);
+		if(Init.bB.getLimit() == false && output < 0)
+		{
+			Init.bB.setSetpoint(Init.bB.getPosition());
+			output = 0;
+		}
+		lastOutput = -output;
+		setMotor(-output);
 	}
 
 	public void setMotor(double speed) {
 		this.bobinLift.set(speed);
+		System.out.println("Motor BObin set" + speed);
 	}
 
 	public double getEncoder() {
@@ -74,13 +87,6 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 	{
 		return this.lowerLimit.get();
 	}
-	public void checkandReset()
-	{
-		if(this.getLimit() == false)
-		{
-			this.resetEncoder();
-		}
-	}
 	public void display()
 	{
 		SmartDashboard.putNumber("Bobin Motor Value", this.bobinLift.get());
@@ -89,5 +95,6 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 		SmartDashboard.putNumber("BObin Encoder Value(Inches)", getEncoder());
 		SmartDashboard.putBoolean("Bobin Limit", getLimit());
 		SmartDashboard.putNumber("OUT PID", this.lastOutput);
+		SmartDashboard.putNumber("Joystick Value", OI.operatorStick.getLeftJoystickY());
 	}
 }

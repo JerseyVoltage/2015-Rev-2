@@ -136,7 +136,7 @@ public class DriveBaseSubsystem extends Subsystem {
 		this.EncoderPID.SensorInput(this.getInchesTravelled());
 		this.EncoderPID.setTolerance(.2);
 		this.EncoderPID.setPosition(dist);
-		this.EncoderPID.setMotorLimit(-.5, .7);
+		//this.EncoderPID.setMotorLimit(-.5, .7);
 		// this.EncoderPID.enable();
 		// EncoderThread.start();
 		mDrive.arcadeDrive(-EncoderPID.Output(), 0);

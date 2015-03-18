@@ -65,9 +65,8 @@ public class F310GamePad extends Joystick {
 			return 0.0;
 		} else
 			return this.getRawAxis(leftStick_Y);
-
+			
 	}
-
 	public double getRightJoystickX() {
 		if (Math4587.withinThreshold(getRawAxis(rightStick_X), deadZone)){
 			return 0.0;
