@@ -7,33 +7,37 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class turnGyro extends Command {
-double angle;
-    public turnGyro(double angle) {
+public class driveUntilBumperCommand extends Command {
+double dist;
+boolean isdone;
+    public driveUntilBumperCommand(double dist) {
         // Use requires() here to declare subsystem dependencies
-        requires(Init.dB);
-        this.angle = angle;
+        // eg. requires(chassis);
+    	requires(Init.dB);
+    	this.dist = dist;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Init.dB.resetGyro();
+    	Init.dB.setDriveMotor(.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Init.dB.turnGyro(angle);
+    	if(Init.cB.getSwitchL())
+    	{
+    		isdone = true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Init.dB.getGyroPID().onTarget();
+        return isdone;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Init.dB.getGyroPID().onTarget();
-    	System.out.println("End Gyro turn");
+    	Init.dB.setDriveMotor(0);
     }
 
     // Called when another command which requires one or more of the same

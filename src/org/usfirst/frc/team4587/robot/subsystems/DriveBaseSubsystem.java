@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -46,11 +47,12 @@ public class DriveBaseSubsystem extends Subsystem {
 	private final double Kd_Enc = 0;
 
 	public DriveBaseSubsystem() {
+		leftDrive = new Victor(RobotMap.MOTOR_DRIVE_L1);
+		rightDrive = new Victor(RobotMap.MOTOR_DRIVE_R1);
 		minLimit = -1;
 		maxLimit = 1;
 		System.out.println("Constructing");
-		mDrive = new RobotDrive(RobotMap.MOTOR_DRIVE_L1,
-				RobotMap.MOTOR_DRIVE_R1);
+		mDrive = new RobotDrive(leftDrive,rightDrive);
 		gyroSerial = new SerialPort(57600, Port.kMXP);
 		Gyro = new IMU(gyroSerial);
 		// Encoder Instantiation
@@ -141,7 +143,10 @@ public class DriveBaseSubsystem extends Subsystem {
 		// EncoderThread.start();
 		mDrive.arcadeDrive(-EncoderPID.Output(), 0);
 	}
-
+	public void setDriveMotor(double power)
+	{
+		mDrive.arcadeDrive(power, 0);
+	}
 	// Get PID
 	public PID getGyroPID() {
 		return GyroPID;

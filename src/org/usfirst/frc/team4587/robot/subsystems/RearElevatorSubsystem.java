@@ -3,11 +3,9 @@ package org.usfirst.frc.team4587.robot.subsystems;
 import org.usfirst.frc.team4587.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -50,7 +48,7 @@ public class RearElevatorSubsystem extends PIDSubsystem {
 
     	//downLimit = new DigitalInput(1 /*RobotMap.TOUCH_SENSOR_CD*/);
     	//upLimit = new DigitalInput(2 /*RobotMap.TOUCHSENSOR_CU*/);
-    	motorLift = new Talon(RobotMap.MOTOR_LIFT_C1);
+    	motorLift = new Victor(RobotMap.MOTOR_LIFT_C1);
     	pospot = new AnalogPotentiometer(RobotMap.POT_SENSOR_REARLIFT);
     	forkSolenoid = new Solenoid(RobotMap.CAN_COLLECTION_SOLENOID);
     	this.setSetpoint(-getPot());

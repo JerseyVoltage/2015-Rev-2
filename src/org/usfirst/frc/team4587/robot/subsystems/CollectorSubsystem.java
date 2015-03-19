@@ -41,17 +41,12 @@ public class CollectorSubsystem extends Subsystem {
 	 * @param speed1
 	 * @param speed2
 	 */
-/*	public void correctTotes(double speed1, double speed2) {
-		if (getSwitchL() == true && getSwitchR() == false) {
-			collector1.set(speed1);
-			collector2.set(-speed2);
-		} else if (getSwitchR() == true && getSwitchL() == false) {
-			collector1.set(speed2);
-			collector2.set(-speed1);
-		}
-	}*/
+	public void differentSpeeds(double speed1, double speed2) {
+			collector1.set(-speed1);
+			collector2.set(speed2);
+	}
 	/**
-	 * true = claw out; false = claw in
+	 * true = claw in; false = claw out
 	 */
 	public void clawSet(boolean mode) {
 		pneumaticClaw.set(mode);

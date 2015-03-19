@@ -8,7 +8,7 @@ import Utilities.Math4587;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,7 +28,7 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 		//this.getPIDController().setContinuous();
 		this.setAbsoluteTolerance(.5);
 		
-		bobinLift = new Talon(RobotMap.MOTOR_LIFT_B1);
+		bobinLift = new Victor(RobotMap.MOTOR_LIFT_B1);
 		BobinEncoder = new Encoder(RobotMap.ENCODER_SENSOR_BOBIN_A,
 				RobotMap.ENCODER_SENSOR_BOBIN_B);
 		lowerLimit = new DigitalInput(RobotMap.TOUCH_SENSOR_B1);

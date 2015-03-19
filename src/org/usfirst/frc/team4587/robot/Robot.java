@@ -1,10 +1,15 @@
 
 package org.usfirst.frc.team4587.robot;
 
+import org.usfirst.frc.team4587.robot.commands.Autonomous.ThreeToteAuto1;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -18,7 +23,7 @@ public class Robot extends IterativeRobot {
 
 	
 	
-
+	SendableChooser autoChooser;
     Command autonomousCommand;
 
     /**
@@ -28,6 +33,10 @@ public class Robot extends IterativeRobot {
     public static OI oi;
     public void robotInit() {
     	oi = new OI();
+    	autoChooser = new SendableChooser();
+		autoChooser.addDefault("Nothing", new WaitCommand(0));
+		autoChooser.addObject("Three Tote", new ThreeToteAuto1());
+		SmartDashboard.putData("Autonomous Selection", autoChooser);
 		Init.init();
 		Init.dB.resetEncoders();
 		Init.dB.resetGyro();
