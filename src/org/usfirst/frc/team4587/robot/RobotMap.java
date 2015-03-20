@@ -19,7 +19,8 @@ public class RobotMap {
 	 * Elevator Motors for Can
 	 */
 	public static final int MOTOR_LIFT_C1 = 2;
-	/*
+	/*3
+	 *
 	 * Bobin Lift
 	 */
 	public static final int MOTOR_LIFT_B1 = 4;
