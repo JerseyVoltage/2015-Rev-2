@@ -2,20 +2,21 @@ package org.usfirst.frc.team4587.robot.subsystems;
 
 import org.usfirst.frc.team4587.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import Utilities.Math4587;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class RearElevatorSubsystem extends PIDSubsystem {
-	public static final double POSITION_BOTTOM  = -1.0;
-	public static final double POSITION_TOP     = -0.23;
+	public static final double POSITION_BOTTOM  = 0;
+	public static final double POSITION_TOP     = 3;
 	
 	
 	private static final boolean MOTOR_IS_REVERSED = false;
@@ -24,13 +25,15 @@ public class RearElevatorSubsystem extends PIDSubsystem {
 	private static final double Kd = 0.0;
 
 	private SpeedController motorLift;
-	private Potentiometer pospot;
+	private Encoder encoderLift;
+	private DigitalInput RearBumper;
 	//private DigitalInput downLimit, upLimit;
 	private Solenoid forkSolenoid;
 	private double lastOutput = 0.0;
 
 	public void display() {
-		SmartDashboard.putNumber("Rear Elevator Pot", -this.getPot());
+		SmartDashboard.putBoolean("Limit Switch REar Elevator", this.getBumper());
+		SmartDashboard.putNumber("Rear Elevator Pot", this.getEncoder());
 		SmartDashboard.putNumber("Rear Elevator Setpoint", this.getSetpoint());
 		SmartDashboard.putBoolean("Rear Elevator Fork", this.getForkSolenoid());
 		SmartDashboard.putNumber("Rear Elevator Last Output", this.lastOutput);
@@ -49,11 +52,13 @@ public class RearElevatorSubsystem extends PIDSubsystem {
     	//downLimit = new DigitalInput(1 /*RobotMap.TOUCH_SENSOR_CD*/);
     	//upLimit = new DigitalInput(2 /*RobotMap.TOUCHSENSOR_CU*/);
     	motorLift = new Victor(RobotMap.MOTOR_LIFT_C1);
-    	pospot = new AnalogPotentiometer(RobotMap.POT_SENSOR_REARLIFT);
+    	//pospot = new AnalogPotentiometer(RobotMap.POT_SENSOR_REARLIFT);
+    	encoderLift = new Encoder(RobotMap.ENCODER_SENSOR_REAR_A,RobotMap.ENCODER_SENSOR_REAR_B); 
+    	this.RearBumper = new DigitalInput(RobotMap.TOUCH_SENSOR_R1);
     	forkSolenoid = new Solenoid(RobotMap.CAN_COLLECTION_SOLENOID);
-    	this.setSetpoint(-getPot());
-    	this.setAbsoluteTolerance(.007);
-    	enable();
+    	this.setSetpoint(getEncoder());
+    	this.setAbsoluteTolerance(2);
+    	//enable();
     }
     
     public void initDefaultCommand(){
@@ -64,15 +69,19 @@ public class RearElevatorSubsystem extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    	return -getPot();
+    	if(getBumper())
+    	{
+    		this.encoderLift.reset();
+    	}
+    	return getEncoder();
     }
 
     public void setElevatorPosition(double p) {
     	setSetpoint(p);
     }
 
-    public double getPot() {
-	return pospot.get();
+    public double getEncoder() {
+	return Math4587.distanceTravelled_Inches(this.encoderLift.get());
     }
     
     protected void usePIDOutput(double output) {
@@ -88,10 +97,18 @@ public class RearElevatorSubsystem extends PIDSubsystem {
     public void StopMotors() {
 	motorLift.set(0);
     }
+    public void setRearMotors(double speed)
+    {
+    	this.motorLift.set(speed);
+    }
     public void setForkSolenoid(boolean x) {
     	forkSolenoid.set(x);
     }
     public boolean getForkSolenoid() {
 	return forkSolenoid.get();    
+    }
+    public boolean getBumper()
+    {
+    	return RearBumper.get();
     }
 }

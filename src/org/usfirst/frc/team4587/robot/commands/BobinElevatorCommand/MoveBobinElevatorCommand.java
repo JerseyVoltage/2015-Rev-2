@@ -40,7 +40,7 @@ static final boolean MOVE_DOWN = false;
 			//Init.bB.disable();
     		Init.bB.getPIDController().setPID(.2, 0, 0);
     		System.out.println("Bobin down");
-    		Init.bB.setOutputRange(-.3, .3);
+    		Init.bB.setOutputRange(-.5, .5);
     		Init.bB.setSetpoint(-10);
 		}
     }
@@ -58,7 +58,7 @@ static final boolean MOVE_DOWN = false;
     protected void end() {
     	//Init.bB.setSetpoint(Init.bB.getPosition());// hold current position.
     	//Init.bB.enable();
-    	Init.bB.setOutputRange(-.4, 1);
+    	Init.bB.setOutputRange(-.5, 1);
     	Init.bB.setSetpoint(Init.bB.getPosition());
     }
 

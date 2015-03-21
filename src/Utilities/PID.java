@@ -76,7 +76,6 @@ public class PID{
 	 * @param sensor
 	 */
 	public void SensorInput(double sensor) {
-
 		this.SensorVal = sensor;
 	}
 

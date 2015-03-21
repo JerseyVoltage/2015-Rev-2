@@ -26,7 +26,7 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 	public BobinElevatorSubsystem() {
 		super("Bobin Elevator", 0.5, 0, 0);
 		//this.getPIDController().setContinuous();
-		this.setAbsoluteTolerance(.5);
+		this.setAbsoluteTolerance(2);
 		
 		bobinLift = new Victor(RobotMap.MOTOR_LIFT_B1);
 		BobinEncoder = new Encoder(RobotMap.ENCODER_SENSOR_BOBIN_A,

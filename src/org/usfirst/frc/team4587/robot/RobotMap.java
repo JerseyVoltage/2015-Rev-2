@@ -73,7 +73,6 @@ public class RobotMap {
 	 */
 	public static final int COMPRESSOR_RELAY = 4;
 
-	// /////////////////////////////////--DIO--///////////////////////////////////////////////////
 	/*
 	 * Touch Sensors for Totes collection
 	 */
@@ -83,15 +82,19 @@ public class RobotMap {
 	 */
 	public static final int TOUCH_SENSOR_B1 = 1; 
 	/*
+	 * Rear Elecator Limit Switch
+	 */
+	public static final int TOUCH_SENSOR_R1 = 2;
+	/*
 	 * Encoders for Drive Wheels Two ports: a,b
 	 */
-	public static final int ENCODER_SENSOR_R_A = 4;
-	public static final int ENCODER_SENSOR_R_B = 5;
-	// LEFT SIDE
-	public static final int ENCODER_SENSOR_L_A = 6;
-	public static final int ENCODER_SENSOR_L_B = 7;
+	public static final int ENCODER_SENSOR_R_A = 6;
+	public static final int ENCODER_SENSOR_R_B = 7;
+	// Rear Lift Encoders
+	public static final int ENCODER_SENSOR_REAR_A = 4;
+	public static final int ENCODER_SENSOR_REAR_B = 5;
 	/*
-	 * BOBIN SENSOR FOR ELEVATORd
+	 * BOBIN SENSOR FOR ELEVATOR
 	 * */
 	public static final int ENCODER_SENSOR_BOBIN_A = 8; //BOBIN Encoder SENSOR
 	public static final int ENCODER_SENSOR_BOBIN_B = 9;
@@ -101,7 +104,7 @@ public class RobotMap {
 	 * Pot... so we can measure how high we are.... hehe
 	 */
 	public static final int POT_SENSOR_LIFT = 1;
-	public static final int POT_SENSOR_REARLIFT = 0;
+	//public static final int POT_SENSOR_REARLIFT = 0;
 	/*
 	 * Gyro
 	 */

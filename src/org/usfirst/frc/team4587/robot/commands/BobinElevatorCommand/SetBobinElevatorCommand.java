@@ -20,7 +20,7 @@ double setpoint;
     protected void initialize() {
     	//Init.bB.resetEncoder();
     	Init.bB.getPIDController().setPID(.3, 0, 0);
-    	Init.bB.setOutputRange(-.4, 1);
+    	Init.bB.setOutputRange(-.5, 1);
     	Init.bB.setSetpoint(setpoint);
     }
 

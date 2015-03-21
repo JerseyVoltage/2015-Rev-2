@@ -56,8 +56,8 @@ public class DriveBaseSubsystem extends Subsystem {
 		gyroSerial = new SerialPort(57600, Port.kMXP);
 		Gyro = new IMU(gyroSerial);
 		// Encoder Instantiation
-		encoderLeft = new Encoder(RobotMap.ENCODER_SENSOR_L_A,
-				RobotMap.ENCODER_SENSOR_L_B);
+		/*encoderLeft = new Encoder(RobotMap.ENCODER_SENSOR_L_A,
+				RobotMap.ENCODER_SENSOR_L_B);*/
 		encoderRight = new Encoder(RobotMap.ENCODER_SENSOR_R_A,
 				RobotMap.ENCODER_SENSOR_R_B);
 		// PID
@@ -172,14 +172,14 @@ public class DriveBaseSubsystem extends Subsystem {
 	}
 
 	public void resetEncoders() {
-		this.encoderLeft.reset();
+		//this.encoderLeft.reset();
 		this.encoderRight.reset();
 	}
 
 	public double getInchesTravelled() {
 		return Math
-				.abs(Math4587.distanceTravelled_Inches((encoderLeft.get() + encoderRight
-						.get()) / 2));
+				.abs(Math4587.distanceTravelled_Inches((/*encoderLeft.get()*/  encoderRight
+						.get())));
 	}
 
 	// Display

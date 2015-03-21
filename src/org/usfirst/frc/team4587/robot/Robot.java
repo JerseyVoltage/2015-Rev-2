@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 		Init.init();
 		Init.dB.resetEncoders();
 		Init.dB.resetGyro();
-		Init.cB.clawSet(false);
+		Init.cB.clawSet(true);
 		Init.bB.setSetpoint(Init.bB.getPosition());
         // instantiate the command used for the autonomous period
        // autonomousCommand = new ExampleCommand();

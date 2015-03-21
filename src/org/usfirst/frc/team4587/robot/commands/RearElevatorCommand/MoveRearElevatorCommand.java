@@ -24,20 +24,27 @@ public class MoveRearElevatorCommand extends Command {
 	protected void initialize() {
 		if(direction == MOVE_UP)
 		{
-			//Init.rB.setForkSolenoid(true);
-			Init.rB.getPIDController().setPID(14,0, 0);
-		   Init.rB.setElevatorPosition(RearElevatorSubsystem.POSITION_TOP);
+			//Init.rB.disable();
+	   	Init.rB.getPIDController().setPID(15 ,0, 0);//was 23
+		  Init.rB.setElevatorPosition(RearElevatorSubsystem.POSITION_TOP);
+			Init.rB.setRearMotors(1);
 		}
 		else
 		{
 			//Init.rB.setForkSolenoid(false);
 			Init.rB.getPIDController().setPID(5 ,0, 0);
 		   Init.rB.setElevatorPosition(RearElevatorSubsystem.POSITION_BOTTOM);
+		/*	if(!Init.rB.getBumper())
+			{
+				end();
+			}*/
+			//else
+			//Init.rB.setRearMotors(-1);
 		}
 	}
-
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -47,7 +54,10 @@ public class MoveRearElevatorCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		//Init.rB.setRearMotors(0);
 		Init.rB.setElevatorPosition(Init.rB.getPosition());
+
+		//}
 	}
 
 	// Called when another command which requires one or more of the same

@@ -16,7 +16,7 @@ public class toggleSpeed extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Init.dB.setMotorLimit(-.5, .5);
+    	Init.dB.setMotorLimit(-.75, .75);
     }
 
     // Called repeatedly when this Command is scheduled to run

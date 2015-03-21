@@ -14,7 +14,7 @@ public class Init {
 	public static Timer timer = new Timer();
 	public static DriveBaseSubsystem dB = new DriveBaseSubsystem();
 	public static CollectorSubsystem cB = new CollectorSubsystem();
-	public static ToteElevatorSubsystem eB = null;//new ToteElevatorSubsystem();
+	public static ToteElevatorSubsystem eB =  new ToteElevatorSubsystem();// change to null after first match.
 	public static RearElevatorSubsystem rB = new RearElevatorSubsystem();
 	public static BobinElevatorSubsystem bB = new BobinElevatorSubsystem();
 	//public static OI oi = new OI();
