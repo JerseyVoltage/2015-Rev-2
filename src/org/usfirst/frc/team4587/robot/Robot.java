@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4587.robot;
 
-import org.usfirst.frc.team4587.robot.commands.Autonomous.ThreeToteAuto1;
+import org.usfirst.frc.team4587.robot.commands.Autonomous.LiftBobin;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -35,12 +35,12 @@ public class Robot extends IterativeRobot {
     	oi = new OI();
     	autoChooser = new SendableChooser();
 		autoChooser.addDefault("Nothing", new WaitCommand(0));
-		autoChooser.addObject("Three Tote", new ThreeToteAuto1());
+		autoChooser.addObject("Lift Bobin", new LiftBobin());
 		SmartDashboard.putData("Autonomous Selection", autoChooser);
 		Init.init();
 		Init.dB.resetEncoders();
 		Init.dB.resetGyro();
-		Init.cB.clawSet(true);
+		//Init.cB.clawSet(true);
 		Init.bB.setSetpoint(Init.bB.getPosition());
         // instantiate the command used for the autonomous period
        // autonomousCommand = new ExampleCommand();
@@ -48,21 +48,14 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-	      Init.dB.display();
-	        Init.cB.displayIntake();
-	        Init.eB.display();	
-	        Init.rB.display();
-	        Init.bB.display();
+		displayData();
 	}
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
+    	autonomousCommand = (Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
-        Init.dB.display();
-        Init.cB.displayIntake();
-        Init.eB.display();	
-        Init.rB.display();
-        Init.bB.display();
+        displayData();
     }
 
     /**
@@ -70,11 +63,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        Init.dB.display();
-        Init.cB.displayIntake();
-        Init.eB.display();	
-        Init.rB.display();
-        Init.bB.display();
+        displayData();
     }
 
     public void teleopInit() {
@@ -97,12 +86,15 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        Init.dB.display();
-        Init.cB.displayIntake();
-        Init.eB.display();	
-        Init.rB.display();
-        Init.bB.display();
+    	try{
+    		 Scheduler.getInstance().run();
+    	       displayData();
+    	}
+    	catch (Exception e)
+    	{
+    		System.out.println(e.getStackTrace());
+    	}
+       
     }
     
     /**
@@ -110,5 +102,13 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    public void displayData()
+    {
+    	
+    	 	Init.dB.display();
+	        Init.cB.displayIntake();
+	        Init.rB.display();
+	        Init.bB.display();
     }
 }

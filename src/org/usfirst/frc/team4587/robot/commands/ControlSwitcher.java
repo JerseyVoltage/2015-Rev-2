@@ -1,45 +1,40 @@
-package org.usfirst.frc.team4587.robot.commands.LiftCommand;
+package org.usfirst.frc.team4587.robot.commands;
 
-import org.usfirst.frc.team4587.robot.Init;
-import org.usfirst.frc.team4587.robot.subsystems.CollectorSubsystem;
+import org.usfirst.frc.team4587.robot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SetToteElevator extends Command {
-	double p;
-    public SetToteElevator(double p) {
+public class ControlSwitcher extends Command {
+boolean controlType;
+    public ControlSwitcher() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.p = p;
-    	requires(Init.eB);
+    	
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {	
-    	Init.eB.setSetpoint(p);
-    	Init.eB.enable();
+    protected void initialize() {
+    		OI.manualOveride = true;
+    		System.out.println("Set Control type to:" + OI.manualOveride);
+   
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    /*	if(Init.eB.getPosition() <= .15 && CollectorSubsystem.CollectorIn == true )
-    	{
-    		Init.eB.setSetpoint(Init.eB.getPosition());
-    	}*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Init.eB.onTarget();
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Init.eB.setSetpoint(Init.eB.getPosition());
-    	System.out.println("end Lift");
+    	OI.manualOveride = false;
+    	System.out.println("Set Control type to:" + OI.manualOveride);
     }
 
     // Called when another command which requires one or more of the same

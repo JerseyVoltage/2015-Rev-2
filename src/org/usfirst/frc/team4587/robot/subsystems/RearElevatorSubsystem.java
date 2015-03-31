@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4587.robot.subsystems;
 
+import org.usfirst.frc.team4587.robot.Init;
 import org.usfirst.frc.team4587.robot.RobotMap;
 
 import Utilities.Math4587;
@@ -16,11 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RearElevatorSubsystem extends PIDSubsystem {
 	public static final double POSITION_BOTTOM  = 0;
-	public static final double POSITION_TOP     = 3;
+	public static final double POSITION_TOP     = 96;
 	
 	
 	private static final boolean MOTOR_IS_REVERSED = false;
-	private static final double Kp = 14.0;
+	private static final double Kp = 0.2;
 	private static final double Ki = 0.0;
 	private static final double Kd = 0.0;
 
@@ -33,7 +34,7 @@ public class RearElevatorSubsystem extends PIDSubsystem {
 
 	public void display() {
 		SmartDashboard.putBoolean("Limit Switch REar Elevator", this.getBumper());
-		SmartDashboard.putNumber("Rear Elevator Pot", this.getEncoder());
+		SmartDashboard.putNumber("Rear Elevator Encoder", this.getEncoder());
 		SmartDashboard.putNumber("Rear Elevator Setpoint", this.getSetpoint());
 		SmartDashboard.putBoolean("Rear Elevator Fork", this.getForkSolenoid());
 		SmartDashboard.putNumber("Rear Elevator Last Output", this.lastOutput);
@@ -57,7 +58,7 @@ public class RearElevatorSubsystem extends PIDSubsystem {
     	this.RearBumper = new DigitalInput(RobotMap.TOUCH_SENSOR_R1);
     	forkSolenoid = new Solenoid(RobotMap.CAN_COLLECTION_SOLENOID);
     	this.setSetpoint(getEncoder());
-    	this.setAbsoluteTolerance(2);
+    	this.setAbsoluteTolerance(10);
     	//enable();
     }
     
@@ -69,7 +70,7 @@ public class RearElevatorSubsystem extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    	if(getBumper())
+    	if(getBumper() == false)
     	{
     		this.encoderLift.reset();
     	}
@@ -85,11 +86,11 @@ public class RearElevatorSubsystem extends PIDSubsystem {
     }
     
     protected void usePIDOutput(double output) {
-    	if(MOTOR_IS_REVERSED)
+    	if(getBumper() == false && output < 0)
     	{
-    		output = -output;
+    		Init.rB.setSetpoint(Init.rB.getPosition());
+    		output = 0;
     	}
-    	
     		motorLift.pidWrite(output);
     		lastOutput = output;
     }

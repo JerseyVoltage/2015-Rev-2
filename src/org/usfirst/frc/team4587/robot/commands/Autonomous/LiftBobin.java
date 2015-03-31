@@ -1,22 +1,17 @@
 package org.usfirst.frc.team4587.robot.commands.Autonomous;
 
-import org.usfirst.frc.team4587.robot.commands.DriveCommands.encoderDrive;
-import org.usfirst.frc.team4587.robot.commands.DriveCommands.turnGyro;
-import org.usfirst.frc.team4587.robot.commands.LiftCommand.SetToteElevator;
-import org.usfirst.frc.team4587.robot.commands.LiftCommand.pickUpTote;
-import org.usfirst.frc.team4587.robot.commands.ToteCollectorCommand.CloseClaw;
-import org.usfirst.frc.team4587.robot.commands.ToteCollectorCommand.IntakeKickOut;
-import org.usfirst.frc.team4587.robot.commands.ToteCollectorCommand.IntakeTotesInCommand;
-import org.usfirst.frc.team4587.robot.commands.ToteCollectorCommand.OpenClaw;
+import org.usfirst.frc.team4587.robot.Init;
+import org.usfirst.frc.team4587.robot.commands.BobinElevatorCommand.SetBobinElevatorCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class ThreeToteAuto1 extends CommandGroup {
+public class LiftBobin extends CommandGroup {
      
-    public  ThreeToteAuto1() {
+    public  LiftBobin() {
+    	this.addSequential(new SetBobinElevatorCommand(Init.bB.Up_Pos) );
     /*	this.addSequential(new pickUpTote());// pick up
     	this.addParallel(new encoderDrive(7,3,1));// drive to second tote intake position
     	this.addParallel(new CloseClaw());

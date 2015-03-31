@@ -68,8 +68,8 @@ public class DriveBaseSubsystem extends Subsystem {
 		EncoderPID = new PID(Kp_Enc, Ki_Enc, Kd_Enc);
 		this.PIDGyro = true;
 		// EncoderThread = new Thread(EncoderPID);
-		this.mDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-		this.mDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);// invert motors
+		//this.mDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);  un- comment this for comp bot
+		// this.mDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);// invert motors
 	}
 
 	// Movement

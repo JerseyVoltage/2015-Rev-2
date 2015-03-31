@@ -63,13 +63,17 @@ public class BobinElevatorSubsystem extends PIDSubsystem {
 			Init.bB.setSetpoint(Init.bB.getPosition());
 			output = 0;
 		}
+		if(output < -0.8)
+		{
+			output = -.8;
+		}
 		lastOutput = -output;
 		setMotor(-output);
 	}
 
 	public void setMotor(double speed) {
 		this.bobinLift.set(speed);
-		System.out.println("Motor BObin set" + speed);
+		//System.out.println("Motor BObin set" + speed);
 	}
 
 	public double getEncoder() {

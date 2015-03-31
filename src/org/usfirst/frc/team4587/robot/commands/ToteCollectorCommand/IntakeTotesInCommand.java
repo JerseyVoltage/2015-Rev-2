@@ -19,7 +19,7 @@ public class IntakeTotesInCommand extends Command {
     protected void initialize() {
     	//Init.cB.clawSet(false);
     	if (isFinished() == false) {
-			Init.cB.setIntakeMotors(-.7);
+			Init.cB.setIntakeMotors(-1);
 			System.out.println("Intakes are intaking");
 		}
     }
